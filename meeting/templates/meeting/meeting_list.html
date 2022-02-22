@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% block title %}Meetings{% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<style>
+.meeting-holder{
+margin-top: 80px;
+display: flex;
+flex-direction: column;
+justify-contents: center;
+border: 1px solid #ccc;
+padding: 10px;
+max-width: 550px;
+border-radius: 5px;
+}
+.meeting-card{
+margin-top: 5px;
+width: 100%;
+padding: 20px;
+border-bottom: 1px solid #ccc;
+}
+.meeting-card-holder{
+height: 100vh;
+overflow-y: scroll;
+}
+}
+.date-tag{
+display: flex;
+justify-content: space-between;
+}
+
+.search{
+display: flex
+padding: 15px;
+width: 60%;
+margin: auto;
+}
+
+form{
+display: flex;
+}
+
+label{
+display: none;
+}
+</style>
+<section>
+    <div class="container meeting-holder">
+        <h1 class="text-center" >Choose a board to join</h1>
+        <div class="search">
+            <form method="get" id="searchForm">
+                {{ meetings.form|crispy }}
+                <button input="submit" class="btn btn-primary">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="meeting-card-holder">
+        {% for meeting in object_list %}
+        <div class="meeting-card">
+            <h4 style="color:teal">{{ meeting.name }}</h4>
+            <p>{{ meeting.theme }}</p>
+            <div class="date-tag">
+                <small style="font-size: 10px; margin-right: 20px; font-weight: bold;">{{ meeting.dateScheduled }}</small>
+                <a style="text-decoration:unset;" href="{% url 'meeting:agenda_list' slug=meeting.slug %}"><button class="btn btn-primary">Join</button></a>
+            </div>
+        </div>
+        {% empty %}
+            <h5 class="text-danger p-5">Board not found</h5>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

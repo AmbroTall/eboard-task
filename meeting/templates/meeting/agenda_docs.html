@@ -1,0 +1,139 @@
+{% extends "index.html" %}
+{% block title %}{{ object.name }}{% endblock %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<style>
+.agenda-page{
+margin-top: 80px;
+}
+.container-holder,
+.header{
+display: flex;
+justify-content: space-between;
+margin-top: 20px;
+}
+.agenda{
+flex: 2;
+}
+
+.agenda,
+.documents{
+border: 1px solid #ccc;
+}
+
+.documents{
+display: flex;
+flex-direction: column;
+flex: 1;
+margin-left: 10px;
+}
+.img-download{
+padding-right: 5px;
+}
+.documents img,.img-download{
+height : 50px;
+width : 50px;
+border-radius: 10px;
+}
+
+.documents a{
+text-decoration: none;
+margin-bottom: 20px;
+margin-top: 10px;
+display: flex;
+align-items: center;
+padding-left: 5px;
+}
+.documents a:hover{
+text-decoration: underline;
+}
+
+.docname{
+margin-left: 10px;
+}
+
+.count{
+margin-left: 5px;
+font-weight: 200;
+font-style: italics;
+}
+
+.title-wrapper{
+display: flex;
+align-items: center;
+background: teal;
+color: #fff;
+padding: 15px;
+}
+.bi{
+padding-right: 5px;
+}
+
+.agenda-list{
+font-size: 25px;
+font-weight: 400;
+padding-bottom: 10px;
+letter-spacing: 1.5px;
+}
+
+@media(max-width: 760px){
+.container-holder{
+display:flex;
+flex-direction: column;
+}
+
+.documents, .agenda{
+width: 100%;
+margin: 0;
+}
+
+.documents{
+margin-top: 20px;
+}
+}
+</style>
+<section class="agenda-page">
+    <div class="container">
+        <div class="header mt-3 mb-3">
+            <h2 class="text-black ">Welcome to meeting <span class="text-secondary">{{ object.name }}</span></h2>
+            {% if mint %}
+                {% for minutes in meetings.minutes.all %}
+             <a class="btn btn-success d-flex align-items-center" href="{% url 'meeting:minutes_update' slug=minutes.slug meeting=meetings.slug %}"><i class="bi bi-pencil-square"></i>Edit Minutes</a>
+                {% endfor %}
+            {% else %}
+                <a class="btn btn-primary d-flex align-items-center" href="{% url 'meeting:minutes_page' slug=object.slug %}">Take Minutes</a>
+            {% endif %}
+        </div>
+
+        <div class="container-holder">
+            <div class="agenda">
+                <h3 class="title-wrapper"><img class="img-download" src="{% static 'files/images/agenda.jpg' %}"/>Agendas for today's meeting<span class="count">({{agenda_count}})</span></h3>
+                <ol>
+                {% for agenda in meetings.agendas.all %}
+                    <li class="agenda-list">
+                        {{ agenda.title }}
+                    </li>
+                {% endfor %}
+                </ol>
+            </div>
+
+    <!--        Documents section-->
+            <div class="documents">
+                <h3 class="title-wrapper"><img class="img-download" src="{% static 'files/images/document.png' %}"/>Documents<span class="count">({{doc_count}})</span></h3>
+                {% for document in meetings.documents.all %}
+                <a href="{{document.doc.url}}" target="_blank">
+                    <img src="{% static 'files/images/docimg.png' %}" />
+                    <p class="d-flex pt-2 docname">{{ document.docname }}</p>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+</section>
+
+{% endblock %}

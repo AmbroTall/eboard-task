@@ -1,0 +1,14 @@
+<style>
+	img{
+	height: 40px;
+	width: 40px;
+	padding-right: 5px;
+	}
+</style>
+
+<nav class="topnav navbar navbar-expand-lg navbar-light bg-warning fixed-top">
+	{% load static %}
+	<div class="container">
+		<a class="navbar-brand" href="{% url 'meeting:meeting_list' %}"><img src="{% static 'files/images/meetingpng.png' %}" /><strong>E-BOARD</strong></a>
+	</div>
+</nav>
