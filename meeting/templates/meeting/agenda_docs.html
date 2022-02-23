@@ -2,9 +2,18 @@
 {% block title %}{{ object.name }}{% endblock %}
 
 {% block navbutton %}
+<style>
+.add-link{
+display: flex;
+align-items: center;
+}
+.agenda-navlinks{
+display: flex;
+}
+</style>
 <div class="agenda-navlinks">
-    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:agenda_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">Add Agenda</small></a>
-    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:document_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">Add Documents</small></a>
+    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:agenda_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small style="font-size: 10px;" class="text-dark add-board">agenda</small></a>
+    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:document_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small style="font-size: 10px" class="text-dark add-board">documents</small></a>
 </div>
 {% endblock %}
 
