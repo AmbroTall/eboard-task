@@ -1,5 +1,13 @@
 {% extends "index.html" %}
 {% block title %}{{ object.name }}{% endblock %}
+
+{% block navbutton %}
+<div class="agenda-navlinks">
+    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:agenda_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">Add Agenda</small></a>
+    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:document_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">Add Documents</small></a>
+</div>
+{% endblock %}
+
 {% block content %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -73,10 +81,25 @@ padding-right: 5px;
 }
 
 .agenda-list{
+display: flex;
+justify-content: space-between;
 font-size: 25px;
 font-weight: 400;
 padding-bottom: 10px;
 letter-spacing: 1.5px;
+}
+
+.agenda-li{
+font-size: 25px;
+}
+
+.doc-holder{
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.del-editicons{
+display: flex;
 }
 
 @media(max-width: 760px){
@@ -113,8 +136,14 @@ margin-top: 20px;
                 <h3 class="title-wrapper"><img class="img-download" src="{% static 'files/images/agenda.jpg' %}"/>Agendas for today's meeting<span class="count">({{agenda_count}})</span></h3>
                 <ol>
                 {% for agenda in meetings.agendas.all %}
-                    <li class="agenda-list">
-                        {{ agenda.title }}
+                    <li class="agenda-li">
+                        <div class="agenda-list">
+                            {{ agenda.title }}
+                            <div class="del-editicons">
+                                <span><a class="d-flex align-items-center" href="{% url 'meeting:agenda_update' slug=agenda.slug meeting=meetings.slug %}"><i class="bi bi-pencil-square"></i></a></span>
+                                <span><a class="d-flex align-items-center" href="{% url 'meeting:agenda_delete' slug=agenda.slug meeting=meetings.slug %}"><i style="color: red;" class="bi bi-trash"></i></a></span>
+                            </div>
+                        </div>
                     </li>
                 {% endfor %}
                 </ol>
@@ -124,14 +153,19 @@ margin-top: 20px;
             <div class="documents">
                 <h3 class="title-wrapper"><img class="img-download" src="{% static 'files/images/document.png' %}"/>Documents<span class="count">({{doc_count}})</span></h3>
                 {% for document in meetings.documents.all %}
-                <a href="{{document.doc.url}}" target="_blank">
-                    <img src="{% static 'files/images/docimg.png' %}" />
-                    <p class="d-flex pt-2 docname">{{ document.docname }}</p>
-                </a>
+                <div class="doc-holder">
+                    <a href="{{document.doc.url}}" target="_blank">
+                        <img src="{% static 'files/images/docimg.png' %}" />
+                        <p class="d-flex pt-2 docname">{{ document.docname }}</p>
+                    </a>
+                    <div class="del-editicons">
+                        <span><a class="d-flex align-items-center" href="{% url 'meeting:document_update' slug=document.slug meeting=meetings.slug %}"><i class="bi bi-pencil-square"></i></a></span>
+                        <span><a class="d-flex align-items-center" href="{% url 'meeting:document_delete' slug=document.slug meeting=meetings.slug %}"><i style="color: red;" class="bi bi-trash"></i></a></span>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
-
     </div>
 
 

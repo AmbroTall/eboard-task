@@ -1,35 +1,33 @@
 {% extends "index.html" %}
-{% block title %}Delete Meeting{% endblock %}
+{% block title %}Create agenda{% endblock %}
 {% block content %}
 {% load static %}
 {% load crispy_forms_tags %}
 <style>
     .form-container{
     margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
     }
 
     .btnu{
     margin: auto;
-    width: 10%;
+    width: 50%;
     display: flex;
     justify-content: center;
     }
 
     label{
-    display: none;
+    color: teal;
+    font-weight: bold;
     }
 
 </style>
 
 <div class="container form-container">
-    <h3 class="text-center">Delete {{ object.name }}?</h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger mt-3 btnu"><i class="bi bi-trash"></i></button>
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-3 btnu">add agenda</button>
     </form>
 </div>
 {% endblock %}

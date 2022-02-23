@@ -5,16 +5,18 @@ from django.template.defaultfilters import slugify
 from django.core import validators
 from ckeditor.fields import RichTextField
 from django.urls import reverse
-
-def validate_date(date):
-    if date < timezone.now().date():
-        raise ValidationError("Date cant be past")
+# from django.utils.timezone import now, timezone,datetime
+# import datetime
+# 
+# def validate_date(date):
+#     if date < timezone.now().date():
+#         raise ValidationError("Date cannot be in the past")
 
 class Meeting(models.Model):
     name = models.CharField(max_length=50)
     theme = models.CharField(max_length=500)
-    dateScheduled = models.DateTimeField()
-    dateCreated = models.DateTimeField(auto_now_add=True, validators=[validate_date])
+    dateScheduled = models.DateField()
+    dateCreated = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=60, blank=True)
 
     def __str__(self):
@@ -28,7 +30,7 @@ class Meeting(models.Model):
 
 
     class Meta:
-        ordering = ["dateScheduled"]
+        ordering = ["-dateScheduled"]
 
 
 class Agenda(models.Model):
@@ -47,6 +49,9 @@ class Agenda(models.Model):
     class Meta:
         ordering = ["dateCreated"]
 
+    def get_absolute_url(self):
+        return reverse('meeting:agenda_list', kwargs={'slug':self.meeting.slug})
+
 class Document(models.Model):
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE , related_name='documents')
     docname = models.CharField(max_length=30)
@@ -63,6 +68,9 @@ class Document(models.Model):
 
     class Meta:
         ordering = ["-dateuploaded"]
+
+    def get_absolute_url(self):
+        return reverse('meeting:agenda_list', kwargs={'slug':self.meeting.slug})
 
 
 class Minutes(models.Model):

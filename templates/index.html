@@ -12,6 +12,19 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <style>
+	.navimg{
+	height: 40px;
+	width: 40px;
+	padding-right: 5px;
+	}
+
+	.add-board{
+	margin-left: 5px;
+	}
+
+	.add-board{
+
+	}
 
     body::{
     display: block;
@@ -23,7 +36,13 @@
     }
 </style>
 <body>
-{% include 'navbar.html' %}
+<nav class="topnav navbar navbar-expand-lg navbar-light bg-warning fixed-top">
+	{% load static %}
+	<div class="container">
+		<a class="navbar-brand" href="{% url 'meeting:meeting_list' %}"><img class="navimg" src="{% static 'files/images/meetingpng.png' %}" /><strong>E-BOARD</strong></a>
+		{% block navbutton %}{% endblock %}
+	</div>
+</nav>
 
 {% block content %}
 {% endblock %}

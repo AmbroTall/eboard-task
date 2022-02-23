@@ -4,11 +4,20 @@
 	width: 40px;
 	padding-right: 5px;
 	}
+
+	.add-board{
+	margin-left: 5px;
+	}
+
+	.add-board{
+
+	}
 </style>
 
 <nav class="topnav navbar navbar-expand-lg navbar-light bg-warning fixed-top">
 	{% load static %}
 	<div class="container">
 		<a class="navbar-brand" href="{% url 'meeting:meeting_list' %}"><img src="{% static 'files/images/meetingpng.png' %}" /><strong>E-BOARD</strong></a>
+		<a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:meeting_create' %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">Add Board</small></a>
 	</div>
 </nav>
