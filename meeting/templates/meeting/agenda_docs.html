@@ -13,6 +13,7 @@ margin-top: 80px;
 display: flex;
 justify-content: space-between;
 margin-top: 20px;
+align-items: center;
 }
 .agenda{
 flex: 2;
@@ -97,7 +98,7 @@ margin-top: 20px;
 <section class="agenda-page">
     <div class="container">
         <div class="header mt-3 mb-3">
-            <h2 class="text-black ">Welcome to meeting <span class="text-secondary">{{ object.name }}</span></h2>
+            <h2 class="text-black ">Welcome to board <span class="text-secondary">{{ object.name }}</span></h2>
             {% if mint %}
                 {% for minutes in meetings.minutes.all %}
              <a class="btn btn-success d-flex align-items-center" href="{% url 'meeting:minutes_update' slug=minutes.slug meeting=meetings.slug %}"><i class="bi bi-pencil-square"></i>Edit Minutes</a>

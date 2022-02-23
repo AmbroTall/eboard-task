@@ -18,17 +18,17 @@ class Meeting(models.Model):
     slug = models.SlugField(max_length=60, blank=True)
 
     def __str__(self):
-        return f'Meeting id{self.pk} {self.name}'
+        return f'{self.name} id {self.pk} '
 
 
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f'{self.name}-{self.pk}')
+        self.slug = slugify(f'{self.name}-{self.dateCreated}')
         super(Meeting, self).save(*args, **kwargs)
 
 
     class Meta:
-        ordering = ["-dateScheduled"]
+        ordering = ["dateScheduled"]
 
 
 class Agenda(models.Model):
@@ -41,11 +41,11 @@ class Agenda(models.Model):
         return f'Agenda of {self.meeting.name} meeting id {self.pk}'
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f'{self.title}-{self.pk}')
+        self.slug = slugify(f'{self.title}-{self.dateCreated}')
         super(Agenda, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ["-dateCreated"]
+        ordering = ["dateCreated"]
 
 class Document(models.Model):
     meeting = models.ForeignKey(Meeting, on_delete=models.CASCADE , related_name='documents')
@@ -58,7 +58,7 @@ class Document(models.Model):
         return f'Documents of {self.meeting.name} - {self.pk}'
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(f'{self.meeting.name}-{self.docname}-{self.pk}')
+        self.slug = slugify(f'{self.meeting.name}-{self.docname}-{self.dateuploaded}')
         super(Document, self).save(*args, **kwargs)
 
     class Meta:

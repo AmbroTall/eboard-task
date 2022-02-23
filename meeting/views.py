@@ -59,7 +59,7 @@ class UpdateMinutesView(UpdateView):
     # success_url = reverse_lazy('meeting:agenda_list')
 
 
-# class DeleteMeetingView(DeleteView):
-#     model = Meeting
-#     template_name = 'meeting/delete_meeting.html'
-#     success_url = reverse_lazy('')
+class DeleteMeetingView(DeleteView):
+    model = Meeting
+    template_name = 'meeting/meeting_delete.html'
+    success_url = reverse_lazy('meeting:meeting_list')

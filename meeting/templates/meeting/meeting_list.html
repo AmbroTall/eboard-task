@@ -15,6 +15,11 @@ padding: 10px;
 max-width: 550px;
 border-radius: 5px;
 }
+.meeting-header{
+display: flex;
+justify-content: space-between;
+}
+
 .meeting-card{
 margin-top: 5px;
 width: 100%;
@@ -45,6 +50,7 @@ display: flex;
 label{
 display: none;
 }
+
 </style>
 <section>
     <div class="container meeting-holder">
@@ -60,7 +66,12 @@ display: none;
         <div class="meeting-card-holder">
         {% for meeting in object_list %}
         <div class="meeting-card">
-            <h4 style="color:teal">{{ meeting.name }}</h4>
+            <div class="meeting-header">
+                <h4 style="color:teal">{{ meeting.name }}</h4>
+                {% if user.is_superuser %}
+                    <a href="{% url 'meeting:meeting_delete' slug=meeting.slug %} "><i style="color: red;" class="bi bi-trash"></i></a>
+                {% endif %}
+            </div>
             <p>{{ meeting.theme }}</p>
             <div class="date-tag">
                 <small style="font-size: 10px; margin-right: 20px; font-weight: bold;">{{ meeting.dateScheduled }}</small>
