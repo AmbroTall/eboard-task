@@ -11,10 +11,16 @@ align-items: center;
 .agenda-navlinks{
 display: flex;
 }
+
+@media(max-width: 760px){
+.add-board{
+font-size: 10px;
+}
+}
 </style>
 <div class="agenda-navlinks">
-    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:agenda_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small style="font-size: 10px;" class="text-dark add-board">agenda</small></a>
-    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:document_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small style="font-size: 10px" class="text-dark add-board">documents</small></a>
+    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:agenda_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">agenda</small></a>
+    <a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:document_create' slug=object.slug %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">documents</small></a>
 </div>
 {% endblock %}
 
@@ -134,7 +140,7 @@ margin-top: 20px;
 <section class="agenda-page">
     <div class="container">
         <div class="header mt-3 mb-3">
-            <h2 class="text-black ">Welcome to board <span class="text-secondary">{{ object.name }}</span></h2>
+            <h2 class="text-black ">Welcome to <span class="text-secondary">{{ object.name }}</span></h2>
             {% if mint %}
                 {% for minutes in meetings.minutes.all %}
              <a class="btn btn-success d-flex align-items-center" href="{% url 'meeting:minutes_update' slug=minutes.slug meeting=meetings.slug %}"><i class="bi bi-pencil-square"></i>Edit Minutes</a>

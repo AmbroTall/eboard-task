@@ -30,7 +30,7 @@ class Meeting(models.Model):
 
 
     class Meta:
-        ordering = ["-dateScheduled"]
+        ordering = ["-dateCreated"]
 
 
 class Agenda(models.Model):

@@ -73,7 +73,7 @@ display: flex;
 </style>
 <section>
     <div class="container meeting-holder">
-        <h1 class="text-center" >Choose a board to join</h1>
+        <h1 class="text-center" >Choose a meeting to join</h1>
         <div class="search">
             <form method="get" id="searchForm">
                 {{ meetings.form|crispy }}
@@ -99,7 +99,7 @@ display: flex;
             </div>
         </div>
         {% empty %}
-            <h5 class="text-danger p-5">Board not found</h5>
+            <h5 class="text-danger p-5">Meeting not found</h5>
         {% endfor %}
         </div>
     </div>

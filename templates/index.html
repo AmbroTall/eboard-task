@@ -19,6 +19,7 @@
 	}
 
 
+
     body::{
     display: block;
     content: "";
@@ -49,7 +50,7 @@
 <nav class="topnav navbar navbar-expand-lg navbar-light bg-warning fixed-top">
 	{% load static %}
 	<div class="container d-flex">
-		<a class="navbar-brand" href="{% url 'meeting:meeting_list' %}"><img class="navimg" src="{% static 'files/images/meetingpng.png' %}" /><strong class="logo-title">E-BOARD</strong></a>
+		<a class="navbar-brand" href="{% url 'meeting:meeting_list' %}"><img class="navimg" src="{% static 'files/images/meetingpng.png' %}" /><strong class="logo-title">E-MEETING</strong></a>
 		{% block navbutton %}{% endblock %}
 	</div>
 </nav>
