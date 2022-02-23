@@ -1,6 +1,22 @@
 {% extends "index.html" %}
 {% block title %}Meetings{% endblock %}
-{% block navbutton %}<a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:meeting_create' %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">Add Board</small></a>{% endblock %}
+{% block navbutton %}
+<style>
+    .add-board{
+    margin-left: 5px;
+    }
+    .add-link{
+display: flex;
+align-items: center;
+}
+
+    @media(max-width: 760px){
+    .add-board{
+    font-size: 12px;
+    }
+    }
+</style>
+<a class="navbar-brand text-light btn btn-success add-link" href="{% url 'meeting:meeting_create' %}"><i class="bi bi-plus-square"></i><small class="text-dark add-board">Add Board</small></a>{% endblock %}
 {% block content %}
 {% load static %}
 {% load crispy_forms_tags %}
